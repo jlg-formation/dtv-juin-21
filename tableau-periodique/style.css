@@ -1,5 +1,14 @@
 div.tableau {
-    background-color: #eee;
-    width: 50em;
-    height: 20em;
+  background-color: #eee;
+  width: 50em;
+  height: 20em;
+}
+
+div.element {
+  border: 0.1em solid black;
+  height: 4em;
+  width: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,0 +1,22 @@
+{
+  "name": "atome-site-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlg-formation/dtv-juin-21.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlg-formation/dtv-juin-21/issues"
+  },
+  "homepage": "https://github.com/jlg-formation/dtv-juin-21#readme",
+  "dependencies": {
+    "papaparse": "^5.3.1"
+  }
+}
