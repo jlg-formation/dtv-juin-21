@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jlg-formation/dtv-juin-21#readme",
   "dependencies": {
-    "papaparse": "^5.3.1"
+    "papaparse": "^5.3.1",
+    "serve": "^11.3.2"
   }
 }
