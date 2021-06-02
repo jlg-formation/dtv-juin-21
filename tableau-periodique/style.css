@@ -1,11 +1,12 @@
 div.tableau {
   position: relative;
-  background-color: #eee;
+  background-color: hsl(180, 50%, 80%);
   width: 45em;
   height: 25em;
 }
 
 div.element {
+  cursor: pointer;
   position: absolute;
   border: 0.1em solid black;
   height: 3em;
@@ -13,4 +14,8 @@ div.element {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div.element:hover {
+  background-color: hsl(180, 50%, 60%);
 }

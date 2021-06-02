@@ -20,6 +20,7 @@ const buildPeriodicTable = async () => {
   const div = document.querySelector("div.tableau");
   const array = [];
   for (const record of csv) {
+    console.log("record: ", record);
     if (record.AtomicNumber === "") {
       continue;
     }
@@ -30,7 +31,10 @@ const buildPeriodicTable = async () => {
     const x = 0.5 + (record.Group - 1) * 2.4;
     const y = 0.5 + (record.Period - 1) * 3.4;
     const str = `
-    <div class="element" style="transform: translate(${x}em, ${y}em);">
+    <div
+      class="element"
+      style="transform: translate(${x}em, ${y}em);"
+      title="${record.Element}">
       <span>${record.Symbol}</span>
     </div>`;
     array.push(str);
