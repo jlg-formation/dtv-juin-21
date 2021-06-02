@@ -46,3 +46,19 @@ div.detail {
   width: 20em;
   height: 27em;
 }
+
+circle.shell {
+  stroke-width: 2;
+  stroke-dasharray: 2, 2;
+  stroke: #000;
+  fill-opacity: 0;
+  fill: #000000;
+}
+
+.nucleus {
+  fill: #000000;
+}
+
+.electron {
+  fill: red;
+}

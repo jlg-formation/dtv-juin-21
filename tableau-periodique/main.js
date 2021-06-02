@@ -61,6 +61,19 @@ function showElementDetail(evt) {
   const symbol = this.querySelector("div.symbol").innerHTML;
   const record = csv.find((r) => r.Symbol === symbol);
   console.log("record: ", record);
+  const div = document.querySelector("div.detail");
+  div.innerHTML = `
+  <svg viewBox="-300 -300 600 600">
+ <g>
+  <circle class="shell" r="66" cy="0" cx="0" />
+  <circle class="shell" r="121.49999" cy="0" cx="0" />
+  <circle class="nucleus" r="26" cy="0" cx="0"  />
+  <circle class="electron" r="9" cy="50" cx="30" />
+  <circle class="electron" r="9" cy="200" cx="60" />
+  <circle class="electron" r="9" cy="250" cx="90" />
+ </g>
+</svg>
+  `;
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
