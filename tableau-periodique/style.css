@@ -6,6 +6,12 @@ body {
   font-family: sans-serif;
 }
 
+div.parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 div.tableau {
   position: relative;
   background-color: hsl(180, 50%, 90%);
@@ -33,4 +39,10 @@ div.circle {
   width: 2.4em;
   height: 2.4em;
   border-radius: 100%;
+}
+
+div.detail {
+  border: 0.1em solid black;
+  width: 20em;
+  height: 27em;
 }

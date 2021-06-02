@@ -60,6 +60,7 @@ const buildPeriodicTable = async () => {
 function showElementDetail(evt) {
   const symbol = this.querySelector("div.symbol").innerHTML;
   const record = csv.find((r) => r.Symbol === symbol);
+  console.log("record: ", record);
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
