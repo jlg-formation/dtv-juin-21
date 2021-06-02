@@ -63,16 +63,26 @@ function showElementDetail(evt) {
   console.log("record: ", record);
   const div = document.querySelector("div.detail");
 
-  const r = 66;
+  const shellNbr = +record.NumberofShells;
+  const r = (record.AtomicRadius * 80) / shellNbr;
+  console.log("record.NumberofShells: ", record.NumberofShells);
+  const shellArray = new Array(shellNbr).fill(0).map(
+    (s, i) => `
+    <circle class="shell" r="${(i + 1) * r}" cy="0" cx="0" />
+    `
+  );
+  console.log("shellArray: ", shellArray);
+
+  const shells = shellArray.join("");
+
   const angle = (150 * Math.PI) / 180;
   const cx = r * Math.cos(angle);
   const cy = r * Math.sin(angle);
   div.innerHTML = `
   <svg viewBox="-300 -300 600 600">
  <g>
-  <circle class="shell" r="${r}" cy="0" cx="0" />
-  <circle class="shell" r="${2 * r}" cy="0" cx="0" />
-  <circle class="nucleus" r="26" cy="0" cx="0"  />
+ ${shells}
+  <circle class="nucleus" r="20" cy="0" cx="0"  />
   <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
  </g>
 </svg>
