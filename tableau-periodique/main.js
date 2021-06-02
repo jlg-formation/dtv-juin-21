@@ -1,3 +1,5 @@
+let csv;
+
 const loadData = () => {
   return new Promise((resolve, reject) => {
     const url = "data.csv";
@@ -15,12 +17,11 @@ const loadData = () => {
 };
 
 const buildPeriodicTable = async () => {
-  const csv = await loadData();
+  csv = await loadData();
 
   const div = document.querySelector("div.tableau");
   const array = [];
   for (const record of csv) {
-    console.log("record: ", record);
     if (record.AtomicNumber === "") {
       continue;
     }
@@ -38,7 +39,7 @@ const buildPeriodicTable = async () => {
     <div
       class="element"
       style="transform: translate(${x}em, ${y}em);"
-      title="${record.Element}">
+      title="${record.Element} (${record.AtomicNumber})">
       <div class="symbol">${record.Symbol}</div>
       <div
         class="circle"
@@ -49,6 +50,16 @@ const buildPeriodicTable = async () => {
   }
 
   div.innerHTML = array.join("");
+
+  const elementsDiv = document.querySelectorAll("div.element");
+  elementsDiv.forEach((elt) =>
+    elt.addEventListener("click", showElementDetail)
+  );
 };
+
+function showElementDetail(evt) {
+  const symbol = this.querySelector("div.symbol").innerHTML;
+  const record = csv.find((r) => r.Symbol === symbol);
+}
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);

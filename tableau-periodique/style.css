@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: sans-serif;
+}
+
 div.tableau {
   position: relative;
   background-color: hsl(180, 50%, 90%);
@@ -25,7 +29,7 @@ div.element:hover {
 }
 
 div.circle {
-  background-color: #333;
+  background-color: hsl(180, 50%, 30%);
   width: 2.4em;
   height: 2.4em;
   border-radius: 100%;
