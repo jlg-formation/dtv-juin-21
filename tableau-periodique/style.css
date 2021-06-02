@@ -52,11 +52,10 @@ circle.shell {
   stroke-dasharray: 2, 2;
   stroke: #000;
   fill-opacity: 0;
-  fill: #000000;
 }
 
 .nucleus {
-  fill: #000000;
+  fill: black;
 }
 
 .electron {

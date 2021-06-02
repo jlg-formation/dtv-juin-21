@@ -62,15 +62,18 @@ function showElementDetail(evt) {
   const record = csv.find((r) => r.Symbol === symbol);
   console.log("record: ", record);
   const div = document.querySelector("div.detail");
+
+  const r = 66;
+  const angle = (150 * Math.PI) / 180;
+  const cx = r * Math.cos(angle);
+  const cy = r * Math.sin(angle);
   div.innerHTML = `
   <svg viewBox="-300 -300 600 600">
  <g>
-  <circle class="shell" r="66" cy="0" cx="0" />
-  <circle class="shell" r="121.49999" cy="0" cx="0" />
+  <circle class="shell" r="${r}" cy="0" cx="0" />
+  <circle class="shell" r="${2 * r}" cy="0" cx="0" />
   <circle class="nucleus" r="26" cy="0" cx="0"  />
-  <circle class="electron" r="9" cy="50" cx="30" />
-  <circle class="electron" r="9" cy="200" cx="60" />
-  <circle class="electron" r="9" cy="250" cx="90" />
+  <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
  </g>
 </svg>
   `;
