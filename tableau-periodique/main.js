@@ -5,9 +5,10 @@ const loadData = () => {
     const url = "data.csv";
     Papa.parse(url, {
       download: true,
+      header: true,
       complete: function (results) {
         console.log("Finished:", results.data);
-        resolve(results);
+        resolve(results.data);
       },
       error: function (err, file, inputElem, reason) {
         console.log("err: ", err);
@@ -24,8 +25,24 @@ const buildPeriodicTable = async () => {
   console.log("csv: ", csv);
 
   const div = document.querySelector("div.tableau");
-  div.innerHTML =
-    '<div class="element" style="transform: translate(5em, 2em);"><span>H</span></div>';
+  let str = "";
+  for (const record of csv) {
+    if (record.AtomicNumber === "") {
+      continue;
+    }
+    if (!record.Group) {
+      continue;
+    }
+    console.log("record: ", record);
+    const x = 0.5 + (record.Group - 1) * 2.4;
+    const y = 0.5 + (record.Period - 1) * 3.4;
+    str += `
+<div class="element" style="transform: translate(${x}em, ${y}em);">
+  <span>${record.Symbol}</span>
+</div>`;
+  }
+
+  div.innerHTML = str;
 };
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);

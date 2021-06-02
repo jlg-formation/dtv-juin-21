@@ -1,13 +1,15 @@
 div.tableau {
+  position: relative;
   background-color: #eee;
-  width: 50em;
-  height: 20em;
+  width: 45em;
+  height: 25em;
 }
 
 div.element {
+  position: absolute;
   border: 0.1em solid black;
-  height: 4em;
-  width: 3em;
+  height: 3em;
+  width: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
