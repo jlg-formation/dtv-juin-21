@@ -28,14 +28,22 @@ const buildPeriodicTable = async () => {
       continue;
     }
 
-    const x = 0.5 + (record.Group - 1) * 2.4;
-    const y = 0.5 + (record.Period - 1) * 3.4;
+    const x = 0.5 + (record.Group - 1) * (2.5 + 0.2);
+    const y = 0.5 + (record.Period - 1) * (3.5 + 0.2);
+    if (!record.AtomicRadius) {
+      record.AtomicRadius = 0;
+    }
+    const scale = record.AtomicRadius / 3.3;
     const str = `
     <div
       class="element"
       style="transform: translate(${x}em, ${y}em);"
       title="${record.Element}">
-      <span>${record.Symbol}</span>
+      <div class="symbol">${record.Symbol}</div>
+      <div
+        class="circle"
+        style="transform: scale(${scale});"
+      ></div>
     </div>`;
     array.push(str);
   }
