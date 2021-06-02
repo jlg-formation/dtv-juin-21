@@ -82,7 +82,7 @@ function showElementDetail(evt) {
   <svg viewBox="-300 -300 600 600">
  <g>
  ${shells}
-  <circle class="nucleus" r="20" cy="0" cx="0"  />
+  <circle class="nucleus" r="10" cy="0" cx="0"  />
   <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
  </g>
 </svg>
