@@ -51,13 +51,70 @@ const buildPeriodicTable = async () => {
       return `transform: translate(${x}em, ${y}em);`;
     })
     .on("end", () => {
-      const elt = document.querySelector("div.element[title='Aluminum (13)']");
-      console.log("elt: ", elt);
-      showElementDetail.bind(elt)();
+      initDetails();
     });
 
   const commands = document.querySelectorAll("div.command input");
   commands.forEach((c) => c.addEventListener("input", updateTableau));
+};
+
+const initDetails = () => {
+  const elt = document.querySelector("div.element[title='Aluminum (13)']");
+  console.log("elt: ", elt);
+
+  document
+    .querySelectorAll("div.element")
+    .forEach((elt) => elt.classList.remove("active"));
+  elt.classList.add("active");
+
+  const symbol = elt.querySelector("div.symbol").innerHTML;
+  const record = csv.find((r) => r.Symbol === symbol);
+  const recordShell = electronShellCsv.find(
+    (r) => r.atomicNbr === record.AtomicNumber
+  );
+  console.log("record: ", record);
+  console.log("recordShell: ", recordShell);
+
+  const shellNbr = +record.NumberofShells;
+  const r = (record.AtomicRadius * 80) / shellNbr;
+  console.log("record.NumberofShells: ", record.NumberofShells);
+  const shellArray = new Array(shellNbr).fill(0).map(
+    (s, i) => `
+    <circle class="shell" r="${(i + 1) * r}" cy="0" cx="0" />
+    `
+  );
+  console.log("shellArray: ", shellArray);
+
+  const shells = shellArray.join("");
+
+  const electrons = getElectronsSvg(recordShell.shell, r);
+
+  const div = document.querySelector("div.detail");
+
+  div.innerHTML = `
+  
+  <div class="title">${record.Element}</div>
+  <div class="atomicNbr">${record.AtomicNumber} protons</div>
+  <div class="neutronNbr">${(+record.AtomicMass - +record.AtomicNumber).toFixed(
+    3
+  )} neutrons </div>
+  <div class="svg" title="${record.Element}">
+    <img class="phase" src="../assets/${record.Phase}.svg">
+    <svg viewBox="-300 -300 600 600">
+      <g>
+  ${shells}
+        <circle class="nucleus" r="10" cy="0" cx="0"  />
+  ${electrons}
+      </g>
+    </svg>
+  </div>
+  <div class="footer">Découvert en ${
+    record.Year
+  } par <a href="https://www.google.com/search?q=${record.Discoverer}">${
+    record.Discoverer
+  }</a></div>
+ 
+  `;
 };
 
 function updateTableau() {
@@ -90,6 +147,7 @@ function showElementDetail() {
     .querySelectorAll("div.element")
     .forEach((elt) => elt.classList.remove("active"));
   this.classList.add("active");
+
   const symbol = this.querySelector("div.symbol").innerHTML;
   const record = csv.find((r) => r.Symbol === symbol);
   const recordShell = electronShellCsv.find(
@@ -97,46 +155,37 @@ function showElementDetail() {
   );
   console.log("record: ", record);
   console.log("recordShell: ", recordShell);
-  const div = document.querySelector("div.detail");
 
   const shellNbr = +record.NumberofShells;
   const r = (record.AtomicRadius * 80) / shellNbr;
   console.log("record.NumberofShells: ", record.NumberofShells);
-  const shellArray = new Array(shellNbr).fill(0).map(
-    (s, i) => `
-    <circle class="shell" r="${(i + 1) * r}" cy="0" cx="0" />
-    `
-  );
-  console.log("shellArray: ", shellArray);
-
-  const shells = shellArray.join("");
 
   const electrons = getElectronsSvg(recordShell.shell, r);
 
-  div.innerHTML = `
-  
-  <div class="title">${record.Element}</div>
-  <div class="atomicNbr">${record.AtomicNumber} protons</div>
-  <div class="neutronNbr">${(+record.AtomicMass - +record.AtomicNumber).toFixed(
-    3
-  )} neutrons </div>
-  <div class="svg" title="${record.Element}">
-    <img class="phase" src="../assets/${record.Phase}.svg">
-    <svg viewBox="-300 -300 600 600">
-      <g>
-  ${shells}
-        <circle class="nucleus" r="10" cy="0" cx="0"  />
-  ${electrons}
-      </g>
-    </svg>
-  </div>
-  <div class="footer">Découvert en ${
-    record.Year
-  } par <a href="https://www.google.com/search?q=${record.Discoverer}">${
-    record.Discoverer
-  }</a></div>
- 
-  `;
+  d3.select("div.detail .title").text(record.Element);
+  d3.select("div.detail .atomicNbr").text(record.AtomicNumber + " protons");
+  d3.select("div.detail .neutronNbr").text(
+    (+record.AtomicMass - +record.AtomicNumber).toFixed(3) + " neutrons"
+  );
+
+  d3.select("div.detail .svg").attr("title", record.Element);
+  d3.select("div.detail .phase").attr("src", `../assets/${record.Phase}.svg`);
+  d3.select("div.detail .footer").html(
+    `Découvert en ${record.Year} par <a href="https://www.google.com/search?q=${record.Discoverer}">${record.Discoverer}</a>`
+  );
+
+  const shellData = new Array(shellNbr).fill(0).map((s, i) => (i + 1) * r);
+  d3.select("div.detail svg g")
+    .selectAll("circle.shell")
+    .data(shellData, function (d, i) {
+      return i;
+    })
+    .enter()
+    .append("circle")
+    .attr("class", "shell")
+    .attr("r", (d) => d)
+    .attr("cx", 0)
+    .attr("cy", 0);
 }
 
 const getElectronsSvg = (shell, r) => {
