@@ -1,62 +1,39 @@
 let csv;
 let electronShellCsv;
 
-const loadData = (url) => {
-  return new Promise((resolve, reject) => {
-    Papa.parse(url, {
-      download: true,
-      header: true,
-      complete: function (results) {
-        resolve(results.data);
-      },
-      error: function (err, file, inputElem, reason) {
-        reject(err);
-      },
-    });
-  });
-};
-
 const buildPeriodicTable = async () => {
-  csv = await loadData("data/elements.csv");
-  electronShellCsv = await loadData("data/electron-shell.csv");
-  console.log("electronShellCsv: ", electronShellCsv);
+  csv = await d3.csv("data/elements.csv");
+  electronShellCsv = await d3.csv("data/electron-shell.csv");
 
-  const div = document.querySelector("div.tableau");
-  const array = [];
-  for (const record of csv) {
-    if (record.AtomicNumber === "") {
-      continue;
-    }
-    if (!record.Group) {
-      continue;
-    }
+  d3.select("div.tableau")
+    .selectAll("div.element")
+    .data(csv.filter((record) => record.AtomicNumber && record.Group))
+    .enter()
+    .append("div")
+    .attr("class", "element")
+    .attr("style", function (record) {
+      const x = 0.5 + (record.Group - 1) * (2.5 + 0.2);
+      const y = 0.5 + (record.Period - 1) * (3.5 + 0.2);
+      return `transform: translate(${x}em, ${y}em);`;
+    })
+    .attr("title", function (record) {
+      return `${record.Element} (${record.AtomicNumber})`;
+    })
+    .html(function (record) {
+      if (!record.AtomicRadius) {
+        record.AtomicRadius = 0;
+      }
+      const scale = record.AtomicRadius / 3.3;
 
-    const x = 0.5 + (record.Group - 1) * (2.5 + 0.2);
-    const y = 0.5 + (record.Period - 1) * (3.5 + 0.2);
-    if (!record.AtomicRadius) {
-      record.AtomicRadius = 0;
-    }
-    const scale = record.AtomicRadius / 3.3;
-    const str = `
-    <div
-      class="element"
-      style="transform: translate(${x}em, ${y}em);"
-      title="${record.Element} (${record.AtomicNumber})">
+      return `
       <div class="symbol">${record.Symbol}</div>
       <div
         class="circle"
         style="transform: scale(${scale});"
       ></div>
-    </div>`;
-    array.push(str);
-  }
-
-  div.innerHTML = array.join("");
-
-  const elementsDiv = document.querySelectorAll("div.element");
-  elementsDiv.forEach((elt) =>
-    elt.addEventListener("click", showElementDetail)
-  );
+      `;
+    })
+    .on("click", showElementDetail);
 
   const elt = document.querySelector("div.element[title='Aluminum (13)']");
   console.log("elt: ", elt);
