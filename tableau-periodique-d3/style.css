@@ -31,7 +31,12 @@ div.element {
 }
 
 div.element:hover {
-  background-color: hsl(180, 50%, 60%);
+  background-color: hsl(180, 50%, 70%);
+}
+
+div.element:active,
+div.element.active {
+  background-color: hsl(180, 50%, 50%);
 }
 
 div.circle {
@@ -99,10 +104,6 @@ circle.shell {
 
 .electron {
   fill: red;
-}
-
-.active {
-  background-color: hsl(180, 50%, 50%);
 }
 
 img.phase {
