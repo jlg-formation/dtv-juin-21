@@ -99,6 +99,7 @@ function showElementDetail() {
     3
   )} neutrons </div>
   <div class="svg" title="${record.Element}">
+    <img class="phase" src="../assets/${record.Phase}.svg">
     <svg viewBox="-300 -300 600 600">
       <g>
   ${shells}

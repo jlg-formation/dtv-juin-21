@@ -74,6 +74,7 @@ div.title {
   padding: 0.5em;
 }
 .svg {
+  position: relative;
   grid-area: svg;
 }
 .footer {
@@ -99,4 +100,10 @@ circle.shell {
 
 .active {
   background-color: hsl(180, 50%, 50%);
+}
+
+img.phase {
+  position: absolute;
+  height: 3em;
+  padding: 0.5em;
 }
