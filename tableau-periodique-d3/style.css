@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+div.parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+div.tableau {
+  position: relative;
+  background-color: hsl(180, 50%, 90%);
+  width: 50em;
+  height: 27em;
+}
+
+div.element {
+  cursor: pointer;
+  position: absolute;
+  border: 0.1em solid black;
+  height: 3.5em;
+  width: 2.5em;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+div.element:hover {
+  background-color: hsl(180, 50%, 60%);
+}
+
+div.circle {
+  background-color: hsl(180, 50%, 30%);
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 100%;
+}
+
+div.detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 2em 2em auto 2em;
+  grid-template-areas:
+    "header header"
+    "proton neutron"
+    "svg svg"
+    "footer footer";
+  border: 0.1em solid black;
+  width: 20em;
+  height: 27em;
+}
+
+div.title {
+  grid-area: header;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.atomicNbr {
+  grid-area: proton;
+  padding: 0.5em;
+}
+.neutronNbr {
+  grid-area: neutron;
+  text-align: right;
+  padding: 0.5em;
+}
+.svg {
+  position: relative;
+  grid-area: svg;
+}
+.footer {
+  grid-area: footer;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+circle.shell {
+  stroke-width: 2;
+  stroke-dasharray: 2, 2;
+  stroke: #000;
+  fill-opacity: 0;
+}
+
+.nucleus {
+  fill: black;
+}
+
+.electron {
+  fill: red;
+}
+
+.active {
+  background-color: hsl(180, 50%, 50%);
+}
+
+img.phase {
+  position: absolute;
+  height: 3em;
+  padding: 0.5em;
+}
