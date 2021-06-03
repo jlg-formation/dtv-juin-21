@@ -35,10 +35,13 @@ div.element:hover {
 }
 
 div.circle {
+  position: absolute;
+  top: 1em;
   background-color: hsl(180, 50%, 30%);
   width: 2.4em;
   height: 2.4em;
   border-radius: 100%;
+  transition: all 1s;
 }
 
 div.detail {
@@ -109,7 +112,10 @@ img.phase {
 }
 
 img.picto {
+  position: absolute;
+  top: 1.4em;
   height: 1.5em;
+  transition: all 1s;
 }
 
 div.command {

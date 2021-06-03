@@ -24,12 +24,21 @@ const buildPeriodicTable = async () => {
       }
       const scale = record.AtomicRadius / 3.3;
 
+      const circle = `
+      <div
+      class="circle"
+      style="transform: scale(${scale});"
+    ></div>
+      `;
+
+      const picto = `
+      <img class="picto" src="../assets/${record.Phase}.svg" style="opacity: 0">
+      `;
+
       return `
       <div class="symbol">${record.Symbol}</div>
-      <div
-        class="circle"
-        style="transform: scale(${scale});"
-      ></div>
+      ${circle}
+      ${picto}
       `;
     })
     .on("click", showElementDetail)
@@ -63,29 +72,17 @@ function updateTableau() {
         return `${record.Element} (${record.AtomicNumber})`;
       }
       return `${record.Element} (${record.Phase})`;
-    })
-    .html(function (record) {
-      if (!record.AtomicRadius) {
-        record.AtomicRadius = 0;
-      }
-      const scale = record.AtomicRadius / 3.3;
-
-      const circle = `
-      <div
-      class="circle"
-      style="transform: scale(${scale});"
-    ></div>
-      `;
-
-      const picto = `
-      <img class="picto" src="../assets/${record.Phase}.svg">
-      `;
-
-      return `
-    <div class="symbol">${record.Symbol}</div>
-    ${value === "radius" ? circle : picto}
-    `;
     });
+
+  d3.select("div.tableau")
+    .selectAll("div.element .circle")
+    .data(data)
+    .style("opacity", value === "radius" ? 1 : 0);
+
+  d3.select("div.tableau")
+    .selectAll("div.element .picto")
+    .data(data)
+    .style("opacity", value === "phase" ? 1 : 0);
 }
 
 function showElementDetail() {
