@@ -109,10 +109,17 @@ img.phase {
 }
 
 div.command {
+  position: absolute;
+  top: 5em;
+  left: 12em;
   display: flex;
   flex-flow: column;
 }
 
 label {
   padding: 0.5em;
+}
+
+div.parent-tableau {
+  position: relative;
 }
