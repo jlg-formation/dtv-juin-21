@@ -73,7 +73,7 @@ div.title {
   text-align: right;
   padding: 0.5em;
 }
-svg {
+.svg {
   grid-area: svg;
 }
 .footer {
@@ -95,4 +95,8 @@ circle.shell {
 
 .electron {
   fill: red;
+}
+
+.active {
+  background-color: hsl(180, 50%, 50%);
 }

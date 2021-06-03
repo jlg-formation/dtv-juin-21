@@ -60,6 +60,10 @@ const buildPeriodicTable = async () => {
 };
 
 function showElementDetail(evt) {
+  document
+    .querySelectorAll("div.element")
+    .forEach((elt) => elt.classList.remove("active"));
+  this.classList.add("active");
   const symbol = this.querySelector("div.symbol").innerHTML;
   const record = csv.find((r) => r.Symbol === symbol);
   const recordShell = electronShellCsv.find(
@@ -90,13 +94,15 @@ function showElementDetail(evt) {
   <div class="neutronNbr">${(+record.AtomicMass - +record.AtomicNumber).toFixed(
     3
   )} neutrons </div>
-  <svg viewBox="-300 -300 600 600">
-    <g>
-${shells}
-      <circle class="nucleus" r="10" cy="0" cx="0"  />
-${electrons}
-    </g>
-  </svg>
+  <div class="svg" title="${record.Element}">
+    <svg viewBox="-300 -300 600 600">
+      <g>
+  ${shells}
+        <circle class="nucleus" r="10" cy="0" cx="0"  />
+  ${electrons}
+      </g>
+    </svg>
+  </div>
   <div class="footer">Découvert en ${
     record.Year
   } par <a href="https://www.google.com/search?q=${record.Discoverer}">${
