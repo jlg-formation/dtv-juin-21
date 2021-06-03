@@ -103,10 +103,9 @@ const getElectronsSvg = (shell, r) => {
   const array = [];
 
   for (let i = 0; i < shellArray.length; i++) {
-    // shellArray[i]
     console.log("shellArray[i]: ", shellArray[i]);
     for (let j = 0; j < shellArray[i]; j++) {
-      const angle = (j * 15 * Math.PI) / 180;
+      const angle = ((360 / shellArray[i]) * j * Math.PI) / 180;
       const cx = r * (i + 1) * Math.cos(angle);
       const cy = r * (i + 1) * Math.sin(angle);
       const result = `
