@@ -14,11 +14,7 @@ const buildPeriodicTable = async () => {
     .enter()
     .append("div")
     .attr("class", "element")
-    .attr("style", function (record) {
-      const x = 0.5 + (record.Group - 1) * (2.5 + 0.2);
-      const y = 0.5 + (record.Period - 1) * (3.5 + 0.2);
-      return `transform: translate(${x}em, ${y}em);`;
-    })
+    .attr("style", `transform: translate(0, 0);`)
     .attr("title", function (record) {
       return `${record.Element} (${record.AtomicNumber})`;
     })
@@ -36,11 +32,20 @@ const buildPeriodicTable = async () => {
       ></div>
       `;
     })
-    .on("click", showElementDetail);
-
-  const elt = document.querySelector("div.element[title='Aluminum (13)']");
-  console.log("elt: ", elt);
-  showElementDetail.bind(elt)();
+    .on("click", showElementDetail)
+    .transition()
+    .delay(0)
+    .duration(1000)
+    .attr("style", function (record) {
+      const x = 0.5 + (record.Group - 1) * (2.5 + 0.2);
+      const y = 0.5 + (record.Period - 1) * (3.5 + 0.2);
+      return `transform: translate(${x}em, ${y}em);`;
+    })
+    .on("end", () => {
+      const elt = document.querySelector("div.element[title='Aluminum (13)']");
+      console.log("elt: ", elt);
+      showElementDetail.bind(elt)();
+    });
 
   const commands = document.querySelectorAll("div.command input");
   commands.forEach((c) => c.addEventListener("input", updateTableau));
