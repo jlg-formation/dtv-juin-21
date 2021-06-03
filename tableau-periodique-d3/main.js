@@ -1,11 +1,12 @@
 let csv;
 let electronShellCsv;
+let data;
 
 const buildPeriodicTable = async () => {
   csv = await d3.csv("data/elements.csv");
   electronShellCsv = await d3.csv("data/electron-shell.csv");
 
-  const data = csv.filter((record) => record.AtomicNumber && record.Group);
+  data = csv.filter((record) => record.AtomicNumber && record.Group);
   console.log("data: ", data);
   d3.select("div.tableau")
     .selectAll("div.element")
@@ -47,6 +48,39 @@ const buildPeriodicTable = async () => {
 
 function updateTableau() {
   console.log("this: ", this.value);
+  const value = this.value;
+
+  d3.select("div.tableau")
+    .selectAll("div.element")
+    .data(data)
+    .attr("title", function (record) {
+      if (value === "radius") {
+        return `${record.Element} (${record.AtomicNumber})`;
+      }
+      return `${record.Element} (${record.Phase})`;
+    })
+    .html(function (record) {
+      if (!record.AtomicRadius) {
+        record.AtomicRadius = 0;
+      }
+      const scale = record.AtomicRadius / 3.3;
+
+      const circle = `
+      <div
+      class="circle"
+      style="transform: scale(${scale});"
+    ></div>
+      `;
+
+      const picto = `
+      <img class="picto" src="../assets/${record.Phase}.svg">
+      `;
+
+      return `
+    <div class="symbol">${record.Symbol}</div>
+    ${value === "radius" ? circle : picto}
+    `;
+    });
 }
 
 function showElementDetail() {

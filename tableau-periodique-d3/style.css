@@ -108,6 +108,10 @@ img.phase {
   padding: 0.5em;
 }
 
+img.picto {
+  height: 1.5em;
+}
+
 div.command {
   position: absolute;
   top: 5em;
