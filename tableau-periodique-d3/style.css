@@ -107,3 +107,12 @@ img.phase {
   height: 3em;
   padding: 0.5em;
 }
+
+div.command {
+  display: flex;
+  flex-flow: column;
+}
+
+label {
+  padding: 0.5em;
+}

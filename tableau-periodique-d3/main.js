@@ -5,9 +5,11 @@ const buildPeriodicTable = async () => {
   csv = await d3.csv("data/elements.csv");
   electronShellCsv = await d3.csv("data/electron-shell.csv");
 
+  const data = csv.filter((record) => record.AtomicNumber && record.Group);
+  console.log("data: ", data);
   d3.select("div.tableau")
     .selectAll("div.element")
-    .data(csv.filter((record) => record.AtomicNumber && record.Group))
+    .data(data)
     .enter()
     .append("div")
     .attr("class", "element")
