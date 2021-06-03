@@ -1,8 +1,8 @@
 let csv;
+let electronShellCsv;
 
-const loadData = () => {
+const loadData = (url) => {
   return new Promise((resolve, reject) => {
-    const url = "data.csv";
     Papa.parse(url, {
       download: true,
       header: true,
@@ -17,7 +17,9 @@ const loadData = () => {
 };
 
 const buildPeriodicTable = async () => {
-  csv = await loadData();
+  csv = await loadData("data/elements.csv");
+  electronShellCsv = await loadData("data/electron-shell.csv");
+  console.log("electronShellCsv: ", electronShellCsv);
 
   const div = document.querySelector("div.tableau");
   const array = [];
