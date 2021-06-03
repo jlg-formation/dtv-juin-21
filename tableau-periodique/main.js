@@ -62,7 +62,11 @@ const buildPeriodicTable = async () => {
 function showElementDetail(evt) {
   const symbol = this.querySelector("div.symbol").innerHTML;
   const record = csv.find((r) => r.Symbol === symbol);
+  const recordShell = electronShellCsv.find(
+    (r) => r.atomicNbr === record.AtomicNumber
+  );
   console.log("record: ", record);
+  console.log("recordShell: ", recordShell);
   const div = document.querySelector("div.detail");
 
   const shellNbr = +record.NumberofShells;
@@ -77,18 +81,42 @@ function showElementDetail(evt) {
 
   const shells = shellArray.join("");
 
-  const angle = (150 * Math.PI) / 180;
-  const cx = r * Math.cos(angle);
-  const cy = r * Math.sin(angle);
+  const electrons = getElectronsSvg(recordShell.shell, r);
+
   div.innerHTML = `
   <svg viewBox="-300 -300 600 600">
  <g>
  ${shells}
   <circle class="nucleus" r="10" cy="0" cx="0"  />
-  <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
+  ${electrons}
  </g>
 </svg>
   `;
 }
+
+const getElectronsSvg = (shell, r) => {
+  console.log("shell: ", shell);
+
+  const shellArray = shell.split("-");
+  console.log("shellArray: ", shellArray);
+
+  const array = [];
+
+  for (let i = 0; i < shellArray.length; i++) {
+    // shellArray[i]
+    console.log("shellArray[i]: ", shellArray[i]);
+    for (let j = 0; j < shellArray[i]; j++) {
+      const angle = (j * 15 * Math.PI) / 180;
+      const cx = r * (i + 1) * Math.cos(angle);
+      const cy = r * (i + 1) * Math.sin(angle);
+      const result = `
+      <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
+      `;
+      array.push(result);
+    }
+  }
+
+  return array.join("");
+};
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
