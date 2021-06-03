@@ -84,13 +84,25 @@ function showElementDetail(evt) {
   const electrons = getElectronsSvg(recordShell.shell, r);
 
   div.innerHTML = `
+  
+  <div class="title">${record.Element}</div>
+  <div class="atomicNbr">${record.AtomicNumber} protons</div>
+  <div class="neutronNbr">${(+record.AtomicMass - +record.AtomicNumber).toFixed(
+    3
+  )} neutrons </div>
   <svg viewBox="-300 -300 600 600">
- <g>
- ${shells}
-  <circle class="nucleus" r="10" cy="0" cx="0"  />
-  ${electrons}
- </g>
-</svg>
+    <g>
+${shells}
+      <circle class="nucleus" r="10" cy="0" cx="0"  />
+${electrons}
+    </g>
+  </svg>
+  <div class="footer">Découvert en ${
+    record.Year
+  } par <a href="https://www.google.com/search?q=${record.Discoverer}">${
+    record.Discoverer
+  }</a></div>
+ 
   `;
 }
 

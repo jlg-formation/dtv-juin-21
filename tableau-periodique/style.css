@@ -42,9 +42,44 @@ div.circle {
 }
 
 div.detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 2em 2em auto 2em;
+  grid-template-areas:
+    "header header"
+    "proton neutron"
+    "svg svg"
+    "footer footer";
   border: 0.1em solid black;
   width: 20em;
   height: 27em;
+}
+
+div.title {
+  grid-area: header;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.atomicNbr {
+  grid-area: proton;
+  padding: 0.5em;
+}
+.neutronNbr {
+  grid-area: neutron;
+  text-align: right;
+  padding: 0.5em;
+}
+svg {
+  grid-area: svg;
+}
+.footer {
+  grid-area: footer;
+  text-align: center;
+  font-size: 0.8em;
 }
 
 circle.shell {
