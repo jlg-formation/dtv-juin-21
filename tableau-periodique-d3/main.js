@@ -40,7 +40,14 @@ const buildPeriodicTable = async () => {
   const elt = document.querySelector("div.element[title='Aluminum (13)']");
   console.log("elt: ", elt);
   showElementDetail.bind(elt)();
+
+  const commands = document.querySelectorAll("div.command input");
+  commands.forEach((c) => c.addEventListener("input", updateTableau));
 };
+
+function updateTableau() {
+  console.log("this: ", this.value);
+}
 
 function showElementDetail() {
   document
