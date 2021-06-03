@@ -57,9 +57,13 @@ const buildPeriodicTable = async () => {
   elementsDiv.forEach((elt) =>
     elt.addEventListener("click", showElementDetail)
   );
+
+  const elt = document.querySelector("div.element[title='Aluminum (13)']");
+  console.log("elt: ", elt);
+  showElementDetail.bind(elt)();
 };
 
-function showElementDetail(evt) {
+function showElementDetail() {
   document
     .querySelectorAll("div.element")
     .forEach((elt) => elt.classList.remove("active"));
