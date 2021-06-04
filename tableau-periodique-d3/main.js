@@ -41,7 +41,7 @@ function showElementDetail() {
   const r = (record.AtomicRadius * 80) / shellNbr;
   console.log("record.NumberofShells: ", record.NumberofShells);
 
-  const electrons = getElectronsSvg(recordShell.shell, r);
+  const electronData = getElectronData(recordShell.shell, r);
 
   d3.select("div.detail .title").text(record.Element);
   d3.select("div.detail .atomicNbr").text(record.AtomicNumber + " protons");
@@ -66,7 +66,7 @@ function showElementDetail() {
   u.exit()
     .style("opacity", "1")
     .transition()
-    .duration(2000)
+    .duration(1000)
     .style("opacity", "0")
     .attr("r", 1000)
     .remove();
@@ -79,13 +79,41 @@ function showElementDetail() {
     .attr("cy", 0)
     .style("opacity", "0")
     .transition()
-    .duration(2000)
+    .duration(1000)
     .style("opacity", "1")
     .attr("r", (d) => d);
 
   u.transition()
-    .duration(2000)
+    .duration(1000)
     .attr("r", (d) => d);
+
+  const e = d3
+    .select("div.detail svg g")
+    .selectAll("circle.electron")
+    .data(electronData);
+
+  e.exit()
+    .style("opacity", "1")
+    .transition()
+    .duration(500)
+    .style("opacity", "0")
+    .remove();
+
+  e.enter()
+    .append("circle")
+    .attr("class", "electron")
+    .attr("r", 9)
+    .style("opacity", "0")
+    .transition()
+    .duration(1000)
+    .style("opacity", "1")
+    .attr("cx", (d) => d.cx)
+    .attr("cy", (d) => d.cy);
+
+  e.transition()
+    .duration(1000)
+    .attr("cx", (d) => d.cx)
+    .attr("cy", (d) => d.cy);
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
