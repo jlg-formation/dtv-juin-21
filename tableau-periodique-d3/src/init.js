@@ -53,6 +53,10 @@ const buildPeriodicTable = async () => {
         alreadyDone = true;
         initDetails();
         d3.selectAll("div.command input").on("input", updateTableau);
+        d3.select("div.command")
+          .transition()
+          .duration(2000)
+          .style("opacity", "1");
       }
     });
 };

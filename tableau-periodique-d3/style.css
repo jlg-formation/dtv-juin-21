@@ -125,6 +125,7 @@ div.command {
   left: 12em;
   display: flex;
   flex-flow: column;
+  opacity: 0;
 }
 
 label {
