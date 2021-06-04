@@ -9,7 +9,7 @@ const getElectronsSvg = (shell, r) => {
   for (let i = 0; i < shellArray.length; i++) {
     console.log("shellArray[i]: ", shellArray[i]);
     for (let j = 0; j < shellArray[i]; j++) {
-      const angle = getAngle2(j);
+      const angle = getAngle2(j, shellArray[i]);
       // const angle = getAngle(shellArray, i, j);
       const cx = r * (i + 1) * Math.cos(angle);
       const cy = r * (i + 1) * Math.sin(angle);

@@ -4,7 +4,7 @@ const getAngle = (shellArray, i, j) => {
 
 const angleStart = [0, 30, 100, 200];
 
-const getAngle2 = (nbr) => {
+const getAngle2 = (nbr, total) => {
   const subshellIndex = subshells.findIndex((n) => n > nbr) - 1;
 
   const subshellCapacity =
