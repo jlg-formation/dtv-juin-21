@@ -24,12 +24,12 @@ function updateTableau() {
 }
 
 function showElementDetail() {
-  document
-    .querySelectorAll("div.element")
+  d3.selectAll("div.element")
+    .nodes()
     .forEach((elt) => elt.classList.remove("active"));
   this.classList.add("active");
 
-  const symbol = this.querySelector("div.symbol").innerHTML;
+  const symbol = d3.select(this).select("div.symbol").text();
   const record = csv.find((r) => r.Symbol === symbol);
   const recordShell = electronShellCsv.find(
     (r) => r.atomicNbr === record.AtomicNumber

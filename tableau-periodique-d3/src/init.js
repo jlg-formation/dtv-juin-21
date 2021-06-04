@@ -39,7 +39,7 @@ const buildPeriodicTable = async () => {
         ${picto}
         `;
     })
-    // .on("click", showElementDetail)
+    .on("click", showElementDetail)
     .transition()
     .delay(0)
     .duration(1000)
