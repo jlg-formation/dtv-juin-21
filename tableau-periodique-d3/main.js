@@ -86,7 +86,8 @@ function showElementDetail() {
 
   u.transition()
     .duration(1000)
-    .attr("r", (d) => d);
+    .attr("r", (d) => d)
+    .style("opacity", "1");
 
   const e = d3
     .select("div.detail svg g")
@@ -109,12 +110,15 @@ function showElementDetail() {
     .duration(1000)
     .style("opacity", "1")
     .attr("cx", (d) => d.cx)
-    .attr("cy", (d) => d.cy);
+    .attr("cy", (d) => d.cy)
+    .style("fill", (d) => `hsl(0, 100%, ${50 - d.spin * 40}%)`);
 
   e.transition()
     .duration(1000)
     .attr("cx", (d) => d.cx)
-    .attr("cy", (d) => d.cy);
+    .attr("cy", (d) => d.cy)
+    .style("opacity", "1")
+    .style("fill", (d) => `hsl(0, 100%, ${50 - d.spin * 40}%)`);
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);

@@ -36,7 +36,9 @@ const getElectronData = (shell, r) => {
       const angle = ((360 / shellArray[i]) * j * Math.PI) / 180;
       const cx = r * (i + 1) * Math.cos(angle);
       const cy = r * (i + 1) * Math.sin(angle);
-      const result = { cx: cx, cy: cy };
+      const spin = getSpin(j);
+      console.log("spin: ", spin);
+      const result = { cx: cx, cy: cy, spin };
       array.push(result);
     }
   }
