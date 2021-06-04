@@ -102,10 +102,6 @@ circle.shell {
   fill: black;
 }
 
-.electron {
-  fill: red;
-}
-
 img.phase {
   position: absolute;
   height: 3em;

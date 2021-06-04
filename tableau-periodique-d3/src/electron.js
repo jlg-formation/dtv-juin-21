@@ -12,8 +12,12 @@ const getElectronsSvg = (shell, r) => {
       const angle = ((360 / shellArray[i]) * j * Math.PI) / 180;
       const cx = r * (i + 1) * Math.cos(angle);
       const cy = r * (i + 1) * Math.sin(angle);
+      const spin = getSpin(j);
+      console.log("spin: ", spin);
       const result = `
-        <circle class="electron" r="9" cy="${cy}" cx="${cx}" />
+        <circle class="electron" r="9" cy="${cy}" cx="${cx}" fill="hsl(0, 100%, ${
+        50 - spin * 40
+      }%)"/>
         `;
       array.push(result);
     }
