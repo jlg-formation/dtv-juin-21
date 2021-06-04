@@ -1,5 +1,3 @@
-const subshells = [0, 2, 8, 18, 32];
-
 const getSpin = (nbr) => {
   const subshellIndex = subshells.findIndex((n) => n > nbr) - 1;
   const subshellCapacity =
