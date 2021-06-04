@@ -11,7 +11,7 @@ const buildPeriodicTable = async () => {
     .data(data)
     .enter()
     .append("div")
-    .attr("class", "element")
+    .attr("class", (record) => "element block-" + getBlock(record))
     .attr("style", `transform: translate(0, 0);`)
     .attr("title", function (record) {
       return `${record.Element} (${record.AtomicNumber})`;
