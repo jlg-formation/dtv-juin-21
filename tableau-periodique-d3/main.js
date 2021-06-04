@@ -48,25 +48,31 @@ function showElementDetail() {
   d3.select("div.detail .neutronNbr").text(
     (+record.AtomicMass - +record.AtomicNumber).toFixed(3) + " neutrons"
   );
-
   d3.select("div.detail .svg").attr("title", record.Element);
   d3.select("div.detail .phase").attr("src", `../assets/${record.Phase}.svg`);
   d3.select("div.detail .footer").html(
     `Découvert en ${record.Year} par <a href="https://www.google.com/search?q=${record.Discoverer}">${record.Discoverer}</a>`
   );
 
-  const shellData = new Array(shellNbr).fill(0).map((s, i) => (i + 1) * r);
-  d3.select("div.detail svg g")
+  const shellRadiusList = new Array(shellNbr)
+    .fill(0)
+    .map((s, i) => (i + 1) * r);
+  console.log("shellData: ", shellRadiusList);
+  const u = d3
+    .select("div.detail svg g")
     .selectAll("circle.shell")
-    .data(shellData, function (d, i) {
-      return i;
-    })
-    .enter()
+    .data(shellRadiusList);
+
+  u.exit().remove();
+
+  u.enter()
     .append("circle")
     .attr("class", "shell")
     .attr("r", (d) => d)
     .attr("cx", 0)
     .attr("cy", 0);
+
+  u.attr("r", (d) => d);
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
