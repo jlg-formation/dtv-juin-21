@@ -10,6 +10,11 @@ const getAngle2 = (nbr) => {
   const subshellCapacity =
     subshells[subshellIndex + 1] - subshells[subshellIndex];
   const subshellFilled = nbr + 1 - subshells[subshellIndex];
+  const orbitalNbr = subshellFilled % (subshellCapacity / 2);
 
-  return -(angleStart[subshellIndex] + subshellFilled * 10) * (Math.PI / 180);
+  const spin = getSpin(nbr);
+
+  return (
+    -(angleStart[subshellIndex] + orbitalNbr * 20 + spin * 5) * (Math.PI / 180)
+  );
 };
