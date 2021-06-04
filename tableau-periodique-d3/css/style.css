@@ -119,6 +119,14 @@ img.picto {
   transition: all 1s;
 }
 
+div.block {
+  position: absolute;
+  top: 0.5em;
+  right: 0em;
+  height: 1.5em;
+  padding: 0.5em;
+}
+
 div.command {
   position: absolute;
   top: 5em;

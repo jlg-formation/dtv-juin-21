@@ -50,6 +50,7 @@ function showElementDetail() {
   );
   d3.select("div.detail .svg").attr("title", record.Element);
   d3.select("div.detail .phase").attr("src", `../assets/${record.Phase}.svg`);
+  d3.select("div.detail .block").text("bloc-" + getBlock(record));
   d3.select("div.detail .footer").html(
     `Découvert en ${record.Year} par <a href="https://www.google.com/search?q=${record.Discoverer}">${record.Discoverer}</a>`
   );
