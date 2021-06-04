@@ -63,16 +63,29 @@ function showElementDetail() {
     .selectAll("circle.shell")
     .data(shellRadiusList);
 
-  u.exit().remove();
+  u.exit()
+    .style("opacity", "1")
+    .transition()
+    .duration(2000)
+    .style("opacity", "0")
+    .attr("r", 1000)
+    .remove();
 
   u.enter()
     .append("circle")
     .attr("class", "shell")
-    .attr("r", (d) => d)
+    .attr("r", 0)
     .attr("cx", 0)
-    .attr("cy", 0);
+    .attr("cy", 0)
+    .style("opacity", "0")
+    .transition()
+    .duration(2000)
+    .style("opacity", "1")
+    .attr("r", (d) => d);
 
-  u.attr("r", (d) => d);
+  u.transition()
+    .duration(2000)
+    .attr("r", (d) => d);
 }
 
 addEventListener("DOMContentLoaded", buildPeriodicTable);
